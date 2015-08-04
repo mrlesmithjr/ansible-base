@@ -1,8 +1,7 @@
 ---
 galaxy_info:
   author: Larry Smith Jr.
-  description: Common base role for all hosts. Should be ran after mrlesmithjr.bootstrap role.
-  (Configure apt-cacher,update dhcp client,update dns servers,configure lvm)
+  description: Common base role for all hosts. Should be ran after mrlesmithjr.bootstrap role. (Configure apt-cacher,update dhcp client,update dns servers,configure lvm)
   #company: your company (optional)
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
