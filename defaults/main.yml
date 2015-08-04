@@ -1,5 +1,6 @@
 ---
 # defaults file for ansible-base
+apt_cacher_server: []  #define apt-cacher server if used...define here or globally in group_vars/all/servers
 config_lvm: false  #defines if lvm should be configured when adding additional disks...should be defined in host_vars/host
 create_lvm: false  #defines if lvm should be created when adding additional disks...should be defined in host_vars/host (do not set extend or resize to true)
 create_lvname: test-lv  #define lvm name when adding additional disks...should be defined in host_vars/host
@@ -17,6 +18,9 @@ new_mntp: /mnt/test  #defines the desired mount point to be created and new logi
 resize: false  #set to true if resizing the logical volume (do not set create to true)...should be defined in host_vars/host
 resize_lvname: test-lv  #defines the logical volume name to resize...should be defined in host_vars/host
 resize_vgname: test-vg  #defines the volume group name to resize...should be defined in host_vars/host
+rundeck_generate_resources_xml: false  #defines if rundeck CI resources.xml should be generated if using rundeck...
+rundeck_server: []  #define server that is running rundeck CI if used...define here or globally in group_vars/all/servers
+ssh_manage_ssh_known_hosts: false  #define if hosts ssh_known_hosts should be managed
 update_dhcpclient_conf: false  #defines if dhcp client config should be updated...define here or globally in group_vars/all/configs
 update_dns_nameservers: false  #defines if dns servers should be updated...define here or globally in group_vars/all/configs
 update_dns_search: false  #defines if dns search domain should be updated...define here or globally in group_vars/all/configs
