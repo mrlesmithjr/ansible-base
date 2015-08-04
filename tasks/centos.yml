@@ -1,0 +1,13 @@
+---
+- name: centos | installing base packages
+  yum: name={{ item }} state=present
+  with_items:
+   - curl
+   - git
+   - nano
+   - net-tools
+   - ntp
+   - sg3_utils
+
+- name: centos | rescanning for new disks added
+  command: /usr/bin/rescan-scsi-bus.sh
