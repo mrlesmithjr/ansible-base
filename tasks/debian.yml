@@ -25,10 +25,12 @@
 - name: debian | checking for scsi devices
   shell: sg_scan
   register: scsi_devices
+  changed_when: False
 
 - name: debian | rescanning for new disks added
   command: /sbin/rescan-scsi-bus
   when: scsi_devices.stdout != ""
+  changed_when: False
 
 - name: debian | resetting /etc/dhcp/dhclient.conf to default
   template: src=etc/dhcp/dhclient.conf.j2 dest=/etc/dhcp/dhclient.conf owner=root group=root mode=0644
