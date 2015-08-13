@@ -4,6 +4,7 @@ Role Name
 Common base role for all hosts. Should be ran after mrlesmithjr.bootstrap role.
 (Configure apt-cacher,update dhcp client,update dns servers,configure lvm)
 
+[![Build Status](https://travis-ci.org/mrlesmithjr/ansible-base.svg?branch=master)](https://travis-ci.org/mrlesmithjr/ansible-base)
 Requirements
 ------------
 

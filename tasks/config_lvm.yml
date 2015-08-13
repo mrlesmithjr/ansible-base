@@ -1,51 +1,55 @@
 ---
-- name: config_lvm | install | installing packages
+- name: config_lvm | installing packages
   apt: name={{ item }} state=present
   with_items:
      - lvm2
      - scsitools
      - xfsprogs
-  when: config_lvm and ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian"
 
-- name: installing lvm2
+- name: config_lvm | installing lvm2
   yum: name=system-storage-manager state=present
-  when: config_lvm and ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat"
 
-- name: installing sg3_utils
+- name: config_lvm | installing sg3_utils
   yum: name=sg3_utils state=present
-  when: config_lvm and ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat"
 
-- name: rescanning for new disks
+- name: config_lvm | checking for scsi devices
+  shell: sg_scan
+  register: scsi_devices
+
+- name: config_lvm | rescanning for new disks added
   command: /sbin/rescan-scsi-bus
-  when: config_lvm and ansible_os_family == "Debian"
+  when: scsi_devices.stdout != "" and ansible_os_family == "Debian"
 
-- name: rescanning for new disks
+- name: config_lvm | rescanning for new disks
   command: /usr/bin/rescan-scsi-bus.sh
-  when: config_lvm and ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat"
 
-- name: creating new LVM volume group
+- name: config_lvm | creating new LVM volume group
   lvg: vg={{ create_vgname }} pvs={{ new_disk }} state=present
-  when: create_lvm and config_lvm
+  when: create_lvm
 
-- name: creating new LVM logical volume
+- name: config_lvm | creating new LVM logical volume
   lvol: vg={{ create_vgname }} lv={{ create_lvname }} size={{ create_lvsize }}
 
-- name: creating new filesystem on new LVM logical volume
+- name: config_lvm | creating new filesystem on new LVM logical volume
   filesystem: fstype={{ filesystem }} dev=/dev/{{ create_vgname }}/{{ create_lvname }}
-  when: create_lvm and config_lvm
+  when: create_lvm
 
-- name: mounting new filesystem
+- name: config_lvm | mounting new filesystem
   mount: name={{ new_mntp }} src=/dev/{{ create_vgname }}/{{ create_lvname }} fstype={{ filesystem }} state=mounted
-  when: create_lvm and config_lvm
+  when: create_lvm
 
-- name: extending existing LVM volume group
+- name: config_lvm | extending existing LVM volume group
   lvg: vg={{ extend_vgname }} pvs={{ extend_disks }}
-  when: extend and config_lvm
+  when: extend
 
-- name: extending existing filesystem
+- name: config_lvm | extending existing filesystem
   command: lvextend {{ lvextend_options }} /dev/{{ extend_vgname }}/{{ extend_lvname }}
-  when: extend and config_lvm
+  when: extend
 
-- name: resizing filesystem
+- name: config_lvm | resizing filesystem
   command: resize2fs /dev/{{ resize_vgname }}/{{ resize_lvname }}
-  when: resize and config_lvm
+  when: resize
