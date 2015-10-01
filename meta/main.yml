@@ -137,4 +137,4 @@ dependencies:
   # Be sure to remove the '[]' above if you add dependencies
   # to this list.
   - mrlesmithjr.apt-cacher-ng
-  - { role: mrlesmitjr.monit, when: install_monit is defined and install_monit }
+  - { role: mrlesmithjr.monit, when: install_monit is defined and install_monit }
