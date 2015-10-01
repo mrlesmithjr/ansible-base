@@ -18,9 +18,10 @@
   tags: [update_dns_search]
   when: ansible_os_family == "Debian"
 
-- include: config_apt_cacher.yml
-  tags: [config_apt]
-  when: ansible_os_family == "Debian" and apt_cacher_server is defined and (enable_apt_caching is defined and enable_apt_caching) and (apt_caching_server is defined and not apt_caching_server)
+### changed the below to add dependency to mrlesmithjr.apt-cacher-ng
+#- include: config_apt_cacher.yml
+#  tags: [config_apt]
+#  when: ansible_os_family == "Debian" and apt_cacher_server is defined and (enable_apt_caching is defined and enable_apt_caching) and (apt_caching_server is defined and not apt_caching_server)
 
 - include: centos.yml
   tags: [base]
