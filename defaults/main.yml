@@ -1,6 +1,7 @@
 ---
 # defaults file for ansible-base
 apt_cacher_server: []  #define apt-cacher server if used...define here or globally in group_vars/all/servers
+config_monit: false  #defines if monit is to be configured if installed
 config_lvm: false  #defines if lvm should be configured when adding additional disks...should be defined in host_vars/host
 create_lvm: false  #defines if lvm should be created when adding additional disks...should be defined in host_vars/host (do not set extend or resize to true)
 create_lvname: test-lv  #define lvm name when adding additional disks...should be defined in host_vars/host
@@ -11,6 +12,7 @@ extend: false  #defines if lvm vg should be extended (do not set create to true)
 extend_disks: '{{ current_disk }},{{ new_disk }}'  #defines the disks to extend in lvm group...should be defined in host_vars/host
 extend_lvname: test-lv  #defines the lvm lv name to extend...should be defined in host_vars/host
 extend_vgname: test-vg  #defines the lvm vg name to extend...should be defined in host_vars/host
+install_monit: false  #defines if mrlesmithjr.monit role should be installed.
 filesystem: ext4  #defines the filesystem type to create when configuring lvm ( ext3, ext4, xfs, etc. )...should be defined in host_vars/host
 lvextend_options: '-L+10G'  #defines the options to pass to lvextend --- ('-L+10G') - would increase by 10GB whereas ('-l +100%FREE') would increase to full capacity
 new_disk: /dev/sdb  #defines the new disk being added to volume group...should be defined in host_vars/host
