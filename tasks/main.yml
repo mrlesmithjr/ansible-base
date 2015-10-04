@@ -41,8 +41,3 @@
   tags:
     - generate_rundeck_resources
   when: rundeck_setup_rundeck_user is defined and rundeck_setup_rundeck_user and rundeck_generate_resources_xml is defined and rundeck_generate_resources_xml and rundeck_server is defined
-
-- include: deploy_ssh_keys.yml
-  tags:
-    - deploy_ssh_keys
-  when: enable_deploy_ssh_pub_keys is defined and enable_deploy_ssh_pub_keys
