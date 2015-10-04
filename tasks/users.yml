@@ -33,3 +33,15 @@
   lineinfile: dest=/etc/sudoers regexp='^{{ item.user }} ALL' line='{{ item.user }} ALL=(ALL) NOPASSWD:ALL' validate='visudo -cf %s' state=absent
   with_items: create_users
   when: create_users is defined and create_local_users and not item.sudo
+
+- name: users | checking for existing rundeck ssh pub key(s)
+  stat: path=ssh_pub_keys/{{ rundeck_framework_ssh_user }}@{{ rundeck_server }}.pub
+  register: rundeck_ssh_pub_key
+  when: rundeck_server is defined and rundeck_framework_ssh_user is defined and (rundeck_setup_rundeck_user is defined and rundeck_setup_rundeck_user)
+
+- name: adding rundeck ssh pub key(s)
+  authorized_key: user={{ rundeck_framework_ssh_user }}
+                  key="{{ item }}"
+  with_file:
+    - 'ssh_pub_keys/{{ rundeck_framework_ssh_user }}@{{ rundeck_server }}.pub'
+  when: rundeck_ssh_pub_key is defined and rundeck_ssh_pub_key.stat.exists
