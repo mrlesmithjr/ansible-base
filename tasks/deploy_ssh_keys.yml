@@ -3,6 +3,7 @@
   stat: path={{ item[1] }}
   register: ssh_pub_keys
   delegate_to: localhost
+  run_once: true
   sudo: false
   with_subelements:
     - deploy_ssh_pub_keys
