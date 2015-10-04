@@ -37,6 +37,7 @@
 - name: users | checking for existing rundeck ssh pub key(s)
   stat: path=ssh_pub_keys/{{ rundeck_framework_ssh_user }}@{{ rundeck_server }}.pub
   delegate_to: localhost
+  sudo: false
   register: rundeck_ssh_pub_key
   when: rundeck_server is defined and rundeck_framework_ssh_user is defined and (rundeck_setup_rundeck_user is defined and rundeck_setup_rundeck_user)
 
