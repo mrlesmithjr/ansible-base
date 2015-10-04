@@ -2,7 +2,7 @@ Role Name
 =========
 
 Common base role for all hosts. Should be ran after mrlesmithjr.bootstrap role.
-(Configure apt-cacher,update dhcp client,update dns servers,configure lvm)
+(Configure apt-cacher,update dhcp client,update dns servers,configure lvm and manage ssh pub keys for remote users)
 
 [![Build Status](https://travis-ci.org/mrlesmithjr/ansible-base.svg?branch=master)](https://travis-ci.org/mrlesmithjr/ansible-base)
 Requirements
@@ -14,14 +14,38 @@ Role Variables
 --------------
 
 ````
+---
+# defaults file for ansible-base
 apt_cacher_server: []  #define apt-cacher server if used...define here or globally in group_vars/all/servers
-config_monit: false  #defines if monit is to be configured if installed
 config_lvm: false  #defines if lvm should be configured when adding additional disks...should be defined in host_vars/host
+config_monit: false  #defines if monit is to be configured if installed
+create_local_users: true  #defines creating local user accounts on hosts
 create_lvm: false  #defines if lvm should be created when adding additional disks...should be defined in host_vars/host (do not set extend or resize to true)
 create_lvname: test-lv  #define lvm name when adding additional disks...should be defined in host_vars/host
 create_lvsize: 100%FREE  #defines the lvm lv size --- (10G) - would create new lvm with 10Gigabytes -- (512) - would create new lvm with 512m
+# To generate passwords use (replace P@55w0rd with new password).... echo "P@55w0rd" | mkpasswd -s -m sha-512
+create_users:  #defines user accounts to setup on hosts....define here or in group_vars/all
+  - user: demo_user  #define username
+    authorized_keys: ''
+    comment: 'Demo user'  #define a comment to associate with the account
+    generate_keys: false  #generate ssh keys...true|false
+    home: ''  #define a different home directory... ''=/home/username
+    pass: demo_password  #define password for account
+    setup: false  #true=creates account|false=removes account if exists...true|false
+    shell: ''  #define a different shell for the user
+    sudo: false  #define if user should have sudo access...true|false
+    system_account: false  #define if account is a system account...true|falseinstall_fail2ban: false
 create_vgname: test-vg  #defines the lvm vg name to create...
 current_disk: /dev/sda5  #defines the disk currently configured for lvm...should be defined in host_vars/host
+deploy_ssh_pub_keys:  #defines remote users to add ssh pub keys for either the remote user or adding another users pub key to a remote user for passwordless ssh
+  - remote_user: demo_user
+    keys:
+      - ssh_pub_keys/demo_user.pub
+#      - ssh_pub_keys/demo_user_1.pub
+#  - remote_user: demo_user2
+#    keys:
+#      - ssh_pub_keys/demo_user2.pub
+enable_deploy_ssh_pub_keys: false  #defines if accounts in deploy_ssh_pub_keys should be managed
 extend: false  #defines if lvm vg should be extended (do not set create to true)...should be defined in host_vars/host
 extend_disks: '{{ current_disk }},{{ new_disk }}'  #defines the disks to extend in lvm group...should be defined in host_vars/host
 extend_lvname: test-lv  #defines the lvm lv name to extend...should be defined in host_vars/host
@@ -46,12 +70,10 @@ update_etc_hosts: false  #defines if /etc/hosts should be updated...define here 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 Example Playbook
 ----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: servers
       roles:
