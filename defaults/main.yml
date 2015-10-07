@@ -30,16 +30,16 @@ deploy_ssh_pub_keys:  #defines remote users to add ssh pub keys for either the r
 #    keys:
 #      - ssh_pub_keys/demo_user2.pub
 enable_deploy_ssh_pub_keys: false  #defines if accounts in deploy_ssh_pub_keys should be managed
-extend: false  #defines if lvm vg should be extended (do not set create to true)...should be defined in host_vars/host
+extend_lvm: false  #defines if lvm vg should be extended (do not set create to true)...should be defined in host_vars/host
 extend_disks: '{{ current_disk }},{{ new_disk }}'  #defines the disks to extend in lvm group...should be defined in host_vars/host
 extend_lvname: test-lv  #defines the lvm lv name to extend...should be defined in host_vars/host
 extend_vgname: test-vg  #defines the lvm vg name to extend...should be defined in host_vars/host
 install_monit: false  #defines if mrlesmithjr.monit role should be installed.
-filesystem: ext4  #defines the filesystem type to create when configuring lvm ( ext3, ext4, xfs, etc. )...should be defined in host_vars/host
+lvm_filesystem: ext4  #defines the filesystem type to create when configuring lvm ( ext3, ext4, xfs, etc. )...should be defined in host_vars/host
 lvextend_options: '-L+10G'  #defines the options to pass to lvextend --- ('-L+10G') - would increase by 10GB whereas ('-l +100%FREE') would increase to full capacity
-new_disk: /dev/sdb  #defines the new disk being added to volume group...should be defined in host_vars/host
-new_mntp: /mnt/test  #defines the desired mount point to be created and new logical volume to be mounted to...should be defined in host_vars/host
-resize: false  #set to true if resizing the logical volume (do not set create to true)...should be defined in host_vars/host
+lvm_new_disk: /dev/sdb  #defines the new disk being added to volume group...should be defined in host_vars/host
+lvm_new_mntp: /mnt/test  #defines the desired mount point to be created and new logical volume to be mounted to...should be defined in host_vars/host
+resize_lvm: false  #set to true if resizing the logical volume (do not set create to true)...should be defined in host_vars/host
 resize_lvname: test-lv  #defines the logical volume name to resize...should be defined in host_vars/host
 resize_vgname: test-vg  #defines the volume group name to resize...should be defined in host_vars/host
 rundeck_generate_resources_xml: false  #defines if rundeck CI resources.xml should be generated if using rundeck...
