@@ -38,7 +38,7 @@
   lvol: vg={{ create_vgname }} lv={{ create_lvname }} size={{ create_lvsize }}
 
 - name: config_lvm | creating new filesystem on new LVM logical volume
-  filesystem: fstype={{ filesystem }} dev=/dev/{{ create_vgname }}/{{ create_lvname }}
+  filesystem: fstype={{ lvm_filesystem }} dev=/dev/{{ create_vgname }}/{{ create_lvname }}
   when: create_lvm is defined and create_lvm
 
 - name: config_lvm | mounting new filesystem
