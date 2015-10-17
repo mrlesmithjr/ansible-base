@@ -36,8 +36,3 @@
   template: src=etc/dhcp/dhclient.conf.j2 dest=/etc/dhcp/dhclient.conf owner=root group=root mode=0644
   tags: [update_dhcpclient_conf]
   when: update_dhcpclient_conf is defined and update_dhcpclient_conf
-
-- name: debian | updating /etc/hosts in case of dns lookup issues
-  lineinfile: dest=/etc/hosts regexp='^127.0.1.1' line="127.0.1.1      {{ inventory_hostname }} {{ inventory_hostname }}.{{ pri_domain_name }}" state=present
-  tags: [update_etc_hosts]
-  when: update_etc_hosts is defined and update_etc_hosts
