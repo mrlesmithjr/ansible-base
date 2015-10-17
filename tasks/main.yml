@@ -1,6 +1,6 @@
 ---
 # tasks file for ansible-base
-- inclue: update_etc_hosts.yml
+- include: update_etc_hosts.yml
   tags:
     - update_etc_hosts
   when: update_etc_hosts is defined and update_etc_hosts
