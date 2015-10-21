@@ -37,7 +37,6 @@ create_users:  #defines user accounts to setup on hosts....define here or in gro
     system_account: false  #define if account is a system account...true|falseinstall_fail2ban: false
 create_vgname: test-vg  #defines the lvm vg name to create...
 current_disk: /dev/sda5  #defines the disk currently configured for lvm...should be defined in host_vars/host
-<<<<<<< HEAD
 extend: false  #defines if lvm vg should be extended (do not set create to true)...should be defined in host_vars/host
 =======
 deploy_ssh_pub_keys:  #defines remote users to add ssh pub keys for either the remote user or adding another users pub key to a remote user for passwordless ssh
@@ -50,7 +49,6 @@ deploy_ssh_pub_keys:  #defines remote users to add ssh pub keys for either the r
 #      - ssh_pub_keys/demo_user2.pub
 enable_deploy_ssh_pub_keys: false  #defines if accounts in deploy_ssh_pub_keys should be managed
 extend_lvm: false  #defines if lvm vg should be extended (do not set create to true)...should be defined in host_vars/host
->>>>>>> origin/master
 extend_disks: '{{ current_disk }},{{ new_disk }}'  #defines the disks to extend in lvm group...should be defined in host_vars/host
 extend_lvname: test-lv  #defines the lvm lv name to extend...should be defined in host_vars/host
 extend_vgname: test-vg  #defines the lvm vg name to extend...should be defined in host_vars/host
