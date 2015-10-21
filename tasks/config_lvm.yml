@@ -31,28 +31,28 @@
   when: ansible_os_family == "RedHat"
 
 - name: config_lvm | creating new LVM volume group
-  lvg: vg={{ create_vgname }} pvs={{ new_disk }} state=present
-  when: create_lvm
+  lvg: vg={{ create_vgname }} pvs={{ lvm_new_disk }} state=present
+  when: create_lvm is defined and create_lvm
 
 - name: config_lvm | creating new LVM logical volume
   lvol: vg={{ create_vgname }} lv={{ create_lvname }} size={{ create_lvsize }}
 
 - name: config_lvm | creating new filesystem on new LVM logical volume
-  filesystem: fstype={{ filesystem }} dev=/dev/{{ create_vgname }}/{{ create_lvname }}
-  when: create_lvm
+  filesystem: fstype={{ lvm_filesystem }} dev=/dev/{{ create_vgname }}/{{ create_lvname }}
+  when: create_lvm is defined and create_lvm
 
 - name: config_lvm | mounting new filesystem
-  mount: name={{ new_mntp }} src=/dev/{{ create_vgname }}/{{ create_lvname }} fstype={{ filesystem }} state=mounted
-  when: create_lvm
+  mount: name={{ lvm_new_mntp }} src=/dev/{{ create_vgname }}/{{ create_lvname }} fstype={{ lvm_filesystem }} state=mounted
+  when: create_lvm is defined and create_lvm
 
 - name: config_lvm | extending existing LVM volume group
   lvg: vg={{ extend_vgname }} pvs={{ extend_disks }}
-  when: extend
+  when: extend_lvm is defined and extend_lvm
 
 - name: config_lvm | extending existing filesystem
   command: lvextend {{ lvextend_options }} /dev/{{ extend_vgname }}/{{ extend_lvname }}
-  when: extend
+  when: extend_lvm is defined and extend_lvm
 
 - name: config_lvm | resizing filesystem
   command: resize2fs /dev/{{ resize_vgname }}/{{ resize_lvname }}
-  when: resize
+  when: resize_lvm is defined and resize_lvm
