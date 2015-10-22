@@ -44,6 +44,8 @@ resize_lvm: false  #set to true if resizing the logical volume (do not set creat
 resize_lvname: test-lv  #defines the logical volume name to resize...should be defined in host_vars/host
 resize_vgname: test-vg  #defines the volume group name to resize...should be defined in host_vars/host
 rundeck_generate_resources_xml: false  #defines if rundeck CI resources.xml should be generated if using rundeck...
+rundeck_resources_xml_file: resources.xml  #defines the name of the resources file to be created on rundeck server
+rundeck_resources_xml_location: /var/lib/rundeck/var  #defines defaults location on rundeck server to store the new resources.xml file
 rundeck_server: []  #define server that is running rundeck CI if used...define here or globally in group_vars/all/servers
 ssh_manage_ssh_known_hosts: false  #define if hosts ssh_known_hosts should be managed
 update_dhcpclient_conf: false  #defines if dhcp client config should be updated...define here or globally in group_vars/all/configs
