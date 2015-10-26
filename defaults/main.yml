@@ -22,15 +22,6 @@ create_lvsize: 100%FREE  #defines the lvm lv size --- (10G) - would create new l
 create_vgname: test-vg  #defines the lvm vg name to create...
 current_disk: /dev/sda5  #defines the disk currently configured for lvm...should be defined in host_vars/host
 extend: false  #defines if lvm vg should be extended (do not set create to true)...should be defined in host_vars/host
-deploy_ssh_pub_keys:  #defines remote users to add ssh pub keys for either the remote user or adding another users pub key to a remote user for passwordless ssh
-  - remote_user: demo_user
-    keys:
-      - ssh_pub_keys/demo_user.pub
-#      - ssh_pub_keys/demo_user_1.pub
-#  - remote_user: demo_user2
-#    keys:
-#      - ssh_pub_keys/demo_user2.pub
-enable_deploy_ssh_pub_keys: false  #defines if accounts in deploy_ssh_pub_keys should be managed
 extend_lvm: false  #defines if lvm vg should be extended (do not set create to true)...should be defined in host_vars/host
 extend_disks: '{{ current_disk }},{{ new_disk }}'  #defines the disks to extend in lvm group...should be defined in host_vars/host
 extend_lvname: test-lv  #defines the lvm lv name to extend...should be defined in host_vars/host
