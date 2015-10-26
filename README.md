@@ -19,26 +19,25 @@ Role Variables
 apt_cacher_server: []  #define apt-cacher server if used...define here or globally in group_vars/all/servers
 config_lvm: false  #defines if lvm should be configured when adding additional disks...should be defined in host_vars/host
 config_monit: false  #defines if monit is to be configured if installed
-create_local_users: true  #defines creating local user accounts on hosts
+#create_local_users: true  #defines creating local user accounts on hosts
 create_lvm: false  #defines if lvm should be created when adding additional disks...should be defined in host_vars/host (do not set extend or resize to true)
 create_lvname: test-lv  #define lvm name when adding additional disks...should be defined in host_vars/host
 create_lvsize: 100%FREE  #defines the lvm lv size --- (10G) - would create new lvm with 10Gigabytes -- (512) - would create new lvm with 512m
 # To generate passwords use (replace P@55w0rd with new password).... echo "P@55w0rd" | mkpasswd -s -m sha-512
-create_users:  #defines user accounts to setup on hosts....define here or in group_vars/all
-  - user: demo_user  #define username
-    authorized_keys: ''
-    comment: 'Demo user'  #define a comment to associate with the account
-    generate_keys: false  #generate ssh keys...true|false
-    home: ''  #define a different home directory... ''=/home/username
-    pass: demo_password  #define password for account
-    setup: false  #true=creates account|false=removes account if exists...true|false
-    shell: ''  #define a different shell for the user
-    sudo: false  #define if user should have sudo access...true|false
-    system_account: false  #define if account is a system account...true|falseinstall_fail2ban: false
+#create_users:  #defines user accounts to setup on hosts....define here or in group_vars/all
+#  - user: demo_user  #define username
+#    authorized_keys: ''
+#    comment: 'Demo user'  #define a comment to associate with the account
+#    generate_keys: false  #generate ssh keys...true|false
+#    home: ''  #define a different home directory... ''=/home/username
+#    pass: demo_password  #define password for account
+#    setup: false  #true=creates account|false=removes account if exists...true|false
+#    shell: ''  #define a different shell for the user
+#    sudo: false  #define if user should have sudo access...true|false
+#    system_account: false  #define if account is a system account...true|falseinstall_fail2ban: false
 create_vgname: test-vg  #defines the lvm vg name to create...
 current_disk: /dev/sda5  #defines the disk currently configured for lvm...should be defined in host_vars/host
 extend: false  #defines if lvm vg should be extended (do not set create to true)...should be defined in host_vars/host
-=======
 deploy_ssh_pub_keys:  #defines remote users to add ssh pub keys for either the remote user or adding another users pub key to a remote user for passwordless ssh
   - remote_user: demo_user
     keys:
@@ -61,6 +60,8 @@ resize_lvm: false  #set to true if resizing the logical volume (do not set creat
 resize_lvname: test-lv  #defines the logical volume name to resize...should be defined in host_vars/host
 resize_vgname: test-vg  #defines the volume group name to resize...should be defined in host_vars/host
 rundeck_generate_resources_xml: false  #defines if rundeck CI resources.xml should be generated if using rundeck...
+rundeck_resources_xml_file: resources.xml  #defines the name of the resources file to be created on rundeck server
+rundeck_resources_xml_location: /var/lib/rundeck/var  #defines defaults location on rundeck server to store the new resources.xml file
 rundeck_server: []  #define server that is running rundeck CI if used...define here or globally in group_vars/all/servers
 ssh_manage_ssh_known_hosts: false  #define if hosts ssh_known_hosts should be managed
 update_dhcpclient_conf: false  #defines if dhcp client config should be updated...define here or globally in group_vars/all/configs
@@ -80,6 +81,7 @@ Example Playbook
     - hosts: servers
       roles:
          - { role: mrlesmithjr.base }
+         - { role: mrlesmithjr.users }
 
 License
 -------

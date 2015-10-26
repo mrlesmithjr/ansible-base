@@ -5,9 +5,10 @@
     - update_etc_hosts
   when: update_etc_hosts is defined and update_etc_hosts
 
-- include: users.yml
-  tags:
-    - setup_users
+# moved to mrlesmithjr.users
+#- include: users.yml
+#  tags:
+#    - setup_users
 
 - include: config_lvm.yml
   tags:
