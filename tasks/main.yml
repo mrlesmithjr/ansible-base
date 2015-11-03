@@ -5,11 +5,6 @@
     - update_etc_hosts
   when: update_etc_hosts is defined and update_etc_hosts
 
-- include: config_lvm.yml
-  tags:
-    - config_lvm
-  when: config_lvm is defined and config_lvm
-
 - include: debian.yml
   tags:
     - base
