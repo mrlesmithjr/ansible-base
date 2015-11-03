@@ -4,31 +4,38 @@
   register: id_hosts
 
 - name: checking for exsisting resources.xml
-  stat: path='{{ rundeck_resources_xml_location }}/{{ rundeck_resources_xml_file }}'
+  stat:
+    path: "{{ rundeck_resources_xml_location }}/{{ rundeck_resources_xml_file }}"
   delegate_to: '{{ rundeck_server }}'
   register: resources_xml
   run_once: true
 
 - name: creating resources.xml
-  template: src='{{ rundeck_resources_xml_file }}.j2' dest='{{ rundeck_resources_xml_location }}/{{ rundeck_resources_xml_file }}' owner=rundeck group=rundeck mode=0755
+  template:
+    src: "{{ rundeck_resources_xml_file }}.j2"
+    dest: "{{ rundeck_resources_xml_location }}/{{ rundeck_resources_xml_file }}"
+    owner: rundeck
+    group: rundeck
+    mode: 0755
   delegate_to: '{{ rundeck_server }}'
   run_once: true
   when: not resources_xml.stat.exists
 
 - name: creating rundeck resources.xml (not rundeck_server)
-  lineinfile: dest="{{ rundeck_resources_xml_location }}/{{ rundeck_resources_xml_file }}"
-              line="<node name=\"{{ inventory_hostname }}\" description=\"Ansible Generated\" tags=\"{{ group_names }}\" hostname=\"{{ ansible_hostname }}\" osArch=\"{{ ansible_architecture }}\" osFamily=\"{{ ansible_os_family }}\" osName=\"{{ ansible_system }}\" osVersion=\"{{ ansible_kernel }}\" username=\"rundeck\"/>"
-              insertbefore="^</project>"
-              state=present
+  lineinfile:
+    dest: "{{ rundeck_resources_xml_location }}/{{ rundeck_resources_xml_file }}"
+    line: "<node name=\"{{ inventory_hostname }}\" description=\"Ansible Generated\" tags=\"{{ group_names }}\" hostname=\"{{ ansible_hostname }}\" osArch=\"{{ ansible_architecture }}\" osFamily=\"{{ ansible_os_family }}\" osName=\"{{ ansible_system }}\" osVersion=\"{{ ansible_kernel }}\" username=\"rundeck\"/>"
+    insertbefore: "^</project>"
+    state: present
   delegate_to: '{{ rundeck_server }}'
   with_items: id_hosts.results
   when: (inventory_hostname != rundeck_server)
 
 - name: creating rundeck resources.xml (rundeck_server)
   lineinfile: dest="{{ rundeck_resources_xml_location }}/{{ rundeck_resources_xml_file }}"
-              line="<node name=\"localhost\" description=\"Ansible Generated\" tags=\"{{ group_names }}\" hostname=\"localhost\" osArch=\"{{ ansible_architecture }}\" osFamily=\"{{ ansible_os_family }}\" osName=\"{{ ansible_system }}\" osVersion=\"{{ ansible_kernel }}\" username=\"rundeck\"/>"
-              insertbefore="^</project>"
-              state=present
+    line: "<node name=\"localhost\" description=\"Ansible Generated\" tags=\"{{ group_names }}\" hostname=\"localhost\" osArch=\"{{ ansible_architecture }}\" osFamily=\"{{ ansible_os_family }}\" osName=\"{{ ansible_system }}\" osVersion=\"{{ ansible_kernel }}\" username=\"rundeck\"/>"
+    insertbefore: "^</project>"
+    state: present
   delegate_to: '{{ rundeck_server }}'
   with_items: id_hosts.results
   when: (inventory_hostname == rundeck_server)
@@ -44,6 +51,10 @@
   run_once: true
 
 - name: ensuring resources.xml is still owned by rundeck user
-  file: path="{{ rundeck_resources_xml_location }}/{{ rundeck_resources_xml_file }}" owner=rundeck group=rundeck mode=0755
+  file:
+    path: "{{ rundeck_resources_xml_location }}/{{ rundeck_resources_xml_file }}"
+    owner: rundeck
+    group: rundeck
+    mode: 0755
   delegate_to: '{{ rundeck_server }}'
   run_once: true

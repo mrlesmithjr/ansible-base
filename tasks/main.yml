@@ -5,11 +5,6 @@
     - update_etc_hosts
   when: update_etc_hosts is defined and update_etc_hosts
 
-# moved to mrlesmithjr.users
-#- include: users.yml
-#  tags:
-#    - setup_users
-
 - include: config_lvm.yml
   tags:
     - config_lvm
@@ -29,11 +24,6 @@
   tags:
     - update_dns_search
   when: ansible_os_family == "Debian"
-
-### changed the below to add dependency to mrlesmithjr.apt-cacher-ng
-#- include: config_apt_cacher.yml
-#  tags: [config_apt]
-#  when: ansible_os_family == "Debian" and apt_cacher_server is defined and (enable_apt_caching is defined and enable_apt_caching) and (apt_caching_server is defined and not apt_caching_server)
 
 - include: centos.yml
   tags:

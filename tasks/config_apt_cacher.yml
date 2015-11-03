@@ -1,8 +1,0 @@
----
-- name: config_apt_cacher | configuring apt caching
-  template: src=etc/apt/apt.conf.d/02aptcacherng.j2 dest=/etc/apt/apt.conf.d/02aptcacherng owner=root group=root mode=0644
-  register: apt_caching_configured
-
-- name: config_apt_cacher | refreshing apt from cache server
-  apt: update_cache=yes
-  when: apt_caching_configured.changed

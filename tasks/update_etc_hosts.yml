@@ -1,3 +1,7 @@
 ---
 - name: update_etc_hosts | updating etc/hosts
-  template: src=etc/hosts.j2 dest=/etc/hosts owner=root group=root
+  template:
+    src: etc/hosts.j2
+    dest: /etc/hosts
+    owner: root
+    group: root
