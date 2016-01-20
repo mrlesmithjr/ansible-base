@@ -26,7 +26,6 @@ ssh_manage_ssh_known_hosts: false  #define if hosts ssh_known_hosts should be ma
 update_dhcpclient_conf: false  #defines if dhcp client config should be updated...define here or globally in group_vars/all/configs
 update_dns_nameservers: false  #defines if dns servers should be updated...define here or globally in group_vars/all/configs
 update_dns_search: false  #defines if dns search domain should be updated...define here or globally in group_vars/all/configs
-update_etc_hosts: false  #defines if /etc/hosts should be updated...define here or globally in group_vars/all/configs
 ````
 
 Dependencies
