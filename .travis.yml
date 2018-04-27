@@ -28,7 +28,7 @@ env:
 
 before_install:
   - 'sudo docker pull ${distribution}:${version}'
-  - 'sudo docker build --no-cache --rm --file=test/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible travis'
+  - 'sudo docker build --no-cache --rm --file=test/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible test'
 
 script:
   - container_id=$(mktemp)
