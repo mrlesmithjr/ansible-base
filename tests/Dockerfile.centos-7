@@ -1,6 +1,7 @@
 FROM centos:7
 
-RUN yum -y install gmp-devel libffi-devel openssl-devel python-crypto \
+RUN yum -y install epel-release && \
+    yum -y install gmp-devel libffi-devel openssl-devel python-crypto \
     python-devel python-pip python-setuptools python-virtualenv \
     redhat-rpm-config && \
     yum -y group install "Development Tools"
