@@ -54,3 +54,5 @@ rules:
   # Disabling due to copious amounts of long lines in the code which would
   # require a code style change to resolve
   line-length:              disable
+
+  truthy:                   disable
