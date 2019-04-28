@@ -1,5 +1,5 @@
 ---
-extends:                    default
+extends: default
 
 rules:
   braces:
@@ -8,9 +8,9 @@ rules:
     # max-spaces-inside:    0
 
     # Keeping 0 min-spaces to not error on empty collection definitions
-    min-spaces-inside:      0
+    min-spaces-inside: 0
     # Allowing one space inside braces to improve code readability
-    max-spaces-inside:      1
+    max-spaces-inside: 1
 
   brackets:
     # Defaults
@@ -18,18 +18,18 @@ rules:
     # max-spaces-inside:    0
 
     # Keeping 0 min-spaces to not error on empty collection definitions
-    min-spaces-inside:      0
+    min-spaces-inside: 0
     # Allowing one space inside braces to improve code readability
-    max-spaces-inside:      1
+    max-spaces-inside: 1
 
   colons:
     # Defaults
     # max-spaces-before:    0
     # max-spaces-after:     1
 
-    max-spaces-before:      0
+    max-spaces-before: 0
     # Allowing more than one space for code readability
-    max-spaces-after:       -1
+    max-spaces-after: -1
 
   comments:
     # Defaults
@@ -47,12 +47,12 @@ rules:
     # check-multi-line-strings: false
 
     # Requiring 2 space indentation
-    spaces:                 2
+    spaces: 2
     # Requiring consistent indentation within a file, either indented or not
-    indent-sequences:       consistent
+    indent-sequences: consistent
 
   # Disabling due to copious amounts of long lines in the code which would
   # require a code style change to resolve
-  line-length:              disable
+  line-length: disable
 
-  truthy:                   disable
+  truthy: disable

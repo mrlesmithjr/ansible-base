@@ -6,7 +6,6 @@
 
 - name: archlinux | Installing Base Packages
   pacman:
-    name: "{{ item }}"
-    state: "present"
+    name: "{{ base_arch_packages }}"
+    state: present
   become: true
-  with_items: '{{ base_arch_packages }}'

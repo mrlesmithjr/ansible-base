@@ -4,4 +4,4 @@
   shell: resolvconf -u
   become: true
   tags:
-  - skip_ansible_lint
+    - skip_ansible_lint
