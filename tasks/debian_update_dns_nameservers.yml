@@ -7,3 +7,4 @@
     state: "{{ base_dns_nameservers_state }}"
   notify: update resolvconf
   become: true
+  when: not base_netplan|bool
