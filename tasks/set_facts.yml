@@ -1,0 +1,20 @@
+---
+- name: set_facts | Check For /etc/netplan
+  stat:
+    path: /etc/netplan
+  register: base_netplan_dir_check
+  when: ansible_os_family == "Debian"
+
+- name: set_facts | Setting Debian Facts
+  set_fact:
+    base_netplan: false
+  when:
+    - ansible_os_family == "Debian"
+    - not base_netplan_dir_check['stat']['exists']|bool
+
+- name: set_facts | Setting Debian Facts
+  set_fact:
+    base_netplan: true
+  when:
+    - ansible_os_family == "Debian"
+    - base_netplan_dir_check['stat']['exists']|bool

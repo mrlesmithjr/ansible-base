@@ -1,16 +1,25 @@
 # ansible-base
 
-An [Ansible](https://www.ansible.com) role to define a base configuration state.
+Ansible role to define a base configuration state.
 
-- Configure/update dhcp client,update dns servers
+- Configure/update
+  - dhcp client
+  - update dns servers
 
 ## Build Status
+
+### GitHub Actions
+
+![Molecule Test](https://github.com/mrlesmithjr/ansible-base/workflows/Molecule%20Test/badge.svg)
+
+### Travis CI
 
 [![Build Status](https://travis-ci.org/mrlesmithjr/ansible-base.svg?branch=master)](https://travis-ci.org/mrlesmithjr/ansible-base)
 
 ## Requirements
 
-None
+For any required Ansible roles, review:
+[requirements.yml](requirements.yml)
 
 ## Role Variables
 
@@ -18,20 +27,9 @@ None
 
 ## Dependencies
 
-None
-
 ## Example Playbook
 
-```yaml
----
-- hosts: all
-  become: true
-  vars:
-  roles:
-    role: ansible-bootstrap
-    role: ansible-base
-  tasks:
-```
+[playbook.yml](playbook.yml)
 
 ## License
 
@@ -41,6 +39,8 @@ MIT
 
 Larry Smith Jr.
 
-- [@mrlesmithjr](https://www.twitter.com/mrlesmithjr)
-- [EverythingShouldBeVirtual](http://everythingshouldbevirtual.com)
+- [@mrlesmithjr](https://twitter.com/mrlesmithjr)
 - [mrlesmithjr@gmail.com](mailto:mrlesmithjr@gmail.com)
+- [http://everythingshouldbevirtual.com](http://everythingshouldbevirtual.com)
+
+> NOTE: Repo has been created/updated using [https://github.com/mrlesmithjr/cookiecutter-ansible-role](https://github.com/mrlesmithjr/cookiecutter-ansible-role) as a template.

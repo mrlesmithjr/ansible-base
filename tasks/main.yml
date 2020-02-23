@@ -1,37 +1,22 @@
 ---
 # tasks file for ansible-base
-- include: archlinux.yml
-  when: ansible_os_family == "Archlinux"
-  tags:
-    - base
+- include_tasks: set_facts.yml
 
-- include: debian.yml
-  tags:
-    - base
+- include_tasks: archlinux.yml
+  when: ansible_os_family == "Archlinux"
+
+- include_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
-- include: debian_update_dns_nameservers.yml
-  tags:
-    - update_dns_nameservers
-  when: >
-        ansible_os_family == "Debian" and
-        base_update_dns_nameservers
+- include_tasks: debian_update_dns_nameservers.yml
+  when:
+    - ansible_os_family == "Debian"
+    - base_update_dns_nameservers|bool
 
-- include: debian_update_dns_search.yml
-  tags:
-    - update_dns_search
-  when: >
-        ansible_os_family == "Debian" and
-        base_update_dns_search
+- include_tasks: debian_update_dns_search.yml
+  when:
+    - ansible_os_family == "Debian"
+    - base_update_dns_search|bool
 
-- include: redhat.yml
-  tags:
-    - base
+- include_tasks: redhat.yml
   when: ansible_os_family == "RedHat"
-
-# - include: generate_rundeck_resources.yml
-#   tags:
-#     - generate_rundeck_resources
-#   when: >
-#         base_rundeck_generate_resources_xml and
-#         base_rundeck_server is defined

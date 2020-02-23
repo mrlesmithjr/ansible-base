@@ -3,37 +3,35 @@
   apt:
     update_cache: yes
     cache_valid_time: 86400
-  tags:
-    - apt_update
   become: true
 
 - name: debian | running apt-get update (forced)
   apt:
     update_cache: yes
-  tags:
-    - force-apt-update
   become: true
-  when: >
-    base_force_apt_update is defined and
-    base_force_apt_update
+  when:
+    - base_force_apt_update is defined
+    - base_force_apt_update|bool
 
 - name: debian | running apt-get dist-upgrade
   apt:
     upgrade: dist
   become: true
-  when: base_debian_dist_upgrade
+  when: base_debian_dist_upgrade|bool
 
 - name: debian | running apt-get upgrade
   apt:
     upgrade: safe
   become: true
-  when: base_debian_upgrade
+  when: base_debian_upgrade|bool
 
 - name: debian | installing base packages
   apt:
     name: "{{ base_debian_packages }}"
     state: present
   become: true
+  register: result
+  until: result is successful
 
 - name: debian | resetting /etc/dhcp/dhclient.conf to default
   template:
@@ -45,6 +43,6 @@
   tags:
     - update_dhcpclient_conf
   become: true
-  when: >
-    base_update_dhcpclient_conf is defined and
-    base_update_dhcpclient_conf
+  when:
+    - base_update_dhcpclient_conf is defined
+    - base_update_dhcpclient_conf|bool
