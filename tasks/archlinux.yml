@@ -9,3 +9,5 @@
     name: "{{ base_arch_packages }}"
     state: present
   become: true
+  register: result
+  until: result is successful

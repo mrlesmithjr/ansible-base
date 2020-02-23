@@ -4,6 +4,8 @@
     name: "{{ base_redhat_packages }}"
     state: present
   become: true
+  register: result
+  until: result is successful
   when: ansible_distribution != "Fedora"
 
 - name: redhat | installing base packages
@@ -11,4 +13,6 @@
     name: "{{ base_redhat_packages }}"
     state: present
   become: true
+  register: result
+  until: result is successful
   when: ansible_distribution == "Fedora"
