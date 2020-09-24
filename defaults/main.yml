@@ -5,7 +5,6 @@ base_arch_packages:
   - base-devel
   - curl
   - git
-  - ntp
   - sg3_utils
 
 base_debian_packages:
@@ -14,7 +13,6 @@ base_debian_packages:
   - curl
   - git
   - git-core
-  - ntp
   - scsitools
 
 # apt-get upgrade
@@ -47,7 +45,6 @@ base_redhat_packages:
   - git
   - nano
   - net-tools
-  - ntp
   - sg3_utils
 
 # Defines if dhcp client config should be updated
