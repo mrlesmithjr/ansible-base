@@ -44,3 +44,5 @@ Larry Smith Jr.
 - [http://everythingshouldbevirtual.com](http://everythingshouldbevirtual.com)
 
 > NOTE: Repo has been created/updated using [https://github.com/mrlesmithjr/cookiecutter-ansible-role](https://github.com/mrlesmithjr/cookiecutter-ansible-role) as a template.
+
+<!-- ci verification: trivial no-op change to trigger CI on real GitHub runner -->
