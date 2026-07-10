@@ -2,6 +2,8 @@
 galaxy_info:
   author: Larry Smith Jr.
   description: An [Ansible](https://www.ansible.com) role to define a base configuration state.
+  role_name: base
+  namespace: mrlesmithjr
 
   license: MIT
   min_ansible_version: 2.5

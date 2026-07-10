@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Include ansible-base
+      include_role:
+        name: ansible-base
